@@ -15,21 +15,23 @@
 -->
 
 <template>
-  <div class="relative">
-    <navbar-comp @showSettings="hideSettings = !hideSettings"></navbar-comp>
+  <div class="relative h-screen max-h-screen flex flex-col">
+    <navbar-comp @showSettings="hideSettings = !hideSettings" />
     <div class="w-full flex justify-center">
-      <settings-comp class="absolute border-2 border-primary-focus/50 shadow-md rounded-md top-2 w-[30rem] h-[24rem] backdrop-blur-md"
+      <settings-comp class="absolute shadow-md shadow-primary-focus/50 rounded-md top-2 w-[30rem] h-[24rem] backdrop-blur-md"
       :class="hideSettings ? 'hidden': 'flex'"/>
     </div>
+    <main-comp class="bg-red-300 h-full" />
   </div>
 </template>
 
 <script>
 import NavbarComp from './components/NavbarComp.vue'
 import SettingsComp from './components/SettingsComp.vue'
+import MainComp from './components/MainComp.vue'
 export default {
   "components": {
-    NavbarComp, SettingsComp
+    NavbarComp, SettingsComp, MainComp
   },
   data() {
     return {
