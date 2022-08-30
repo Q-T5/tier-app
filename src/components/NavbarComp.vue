@@ -15,22 +15,31 @@
 -->
 
 <template>
-  <nav class="shadow-lg h-12 p-2 flex justify-evenly items-center">
-    <div>
+  <nav class="shadow-lg h-12 p-2 flex justify-between items-center">
+    <div class="pl-5">
       <div class="daisyui-btn-group">
-        <button class="daisyui-btn daisyui-btn-sm">
-          Button A
+        <button class="daisyui-btn daisyui-btn-sm lowercase">
+          <div class="daisyui-tooltip daisyui-tooltip-bottom" data-tip="theme">
+            <font-awesome-icon icon="fa-sun" /> /
+            <font-awesome-icon icon="fa-moon" />
+          </div>
         </button>
-        <button class="daisyui-btn daisyui-btn-sm">
-          Button A
+        <button class="daisyui-btn daisyui-btn-sm lowercase">
+          <div class="daisyui-tooltip daisyui-tooltip-bottom" data-tip="settings">
+            <font-awesome-icon icon="fa-gear" />
+          </div>
         </button>
       </div>
     </div>
-    <div>
-
+    <div class="flex items-center space-x-2">
+      <h1>Your Title Here</h1>
+      <div class="daisyui-tooltip daisyui-tooltip-bottom" data-tip="change title">
+        <font-awesome-icon icon="fa-pencil" class="text-sm" />
+      </div>
     </div>
-    <div>
-
+    <div class="flex items-center space-x-2">
+      <img src="../assets/dog-png.png" alt="dog-logo" class="w-10">
+      <h2>Vue Teir App</h2>
     </div>
   </nav>
 </template>
