@@ -32,24 +32,25 @@
       </div>
     </div>
     <div class="flex items-center space-x-2">
-      <h1 class="text-3xl">Your Title Here</h1>
-      <div class="daisyui-tooltip daisyui-tooltip-bottom" data-tip="change title">
-        <font-awesome-icon icon="fa-pencil" class="text-sm" />
+      <div class="daisyui-tooltip daisyui-tooltip-bottom" data-tip="click to change title">
+        <h1 class="text-3xl outline-none" contenteditable="true" @input="changeTitle($event)">{{ temporaryTitleText }}</h1>
       </div>
     </div>
     <div class="flex items-center space-x-2">
       <img src="../assets/dog-png.png" alt="dog-logo" class="w-10">
-      <h2 class="text-xl">Vue Teir App</h2>
+      <h2 class="text-xl active:outline-none">Vue Tier App</h2>
     </div>
   </nav>
 </template>
 
 <script>
+const titleText = "Click To Edit Title";
 export default {
   "name": "NavbarComp",
   data() {
     return {
-
+      "temporaryTitleText": titleText,
+      "userTitleText": titleText 
     }
   },
   "methods": {
@@ -62,6 +63,10 @@ export default {
       } else if(attributeValue === "garden") {
         targetElement.setAttribute("data-theme", "dark");
       }
+    },
+    "changeTitle": function(event) {
+      const usersTitle = e.target.innerText;
+      this.userTitleText = usersTitle;
     }
   }
 }
