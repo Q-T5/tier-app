@@ -66,7 +66,7 @@ export default {
       }
     },
     "changeTitle": function(event) {
-      const usersTitle = e.target.innerText;
+      const usersTitle = event.target.innerText;
       this.userTitleText = usersTitle;
     }
   }
