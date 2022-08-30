@@ -24,7 +24,7 @@
             <font-awesome-icon icon="fa-moon" />
           </div>
         </button>
-        <button class="daisyui-btn daisyui-btn-sm lowercase no-animation">
+        <button class="daisyui-btn daisyui-btn-sm lowercase no-animation" @click="$emit('showSettings')">
           <div class="daisyui-tooltip daisyui-tooltip-bottom" data-tip="settings">
             <font-awesome-icon icon="fa-gear" />
           </div>
@@ -47,6 +47,7 @@
 const titleText = "Click To Edit Title";
 export default {
   "name": "NavbarComp",
+  "emits": ["showSettings"],
   data() {
     return {
       "temporaryTitleText": titleText,

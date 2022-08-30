@@ -15,26 +15,15 @@
 -->
 
 <template>
-  <div class="relative">
-    <navbar-comp @showSettings="hideSettings = !hideSettings"></navbar-comp>
-    <div class="w-full flex justify-center">
-      <settings-comp class="absolute border-2 border-primary-focus/50 shadow-md rounded-md top-2 w-[30rem] h-[24rem] backdrop-blur-md"
-      :class="hideSettings ? 'hidden': 'flex'"/>
+  <div class="w-full py-2">
+    <div class="flex justify-center w-full">
+        <h1 class="text-center text-4xl">Settings</h1>
     </div>
   </div>
 </template>
 
 <script>
-import NavbarComp from './components/NavbarComp.vue'
-import SettingsComp from './components/SettingsComp.vue'
 export default {
-  "components": {
-    NavbarComp, SettingsComp
-  },
-  data() {
-    return {
-      "hideSettings": false
-    }
-  }
+    "name": "SettingsComp"
 }
 </script>
