@@ -15,14 +15,28 @@
 -->
 
 <template>
-  <navbar-comp />
+  <nav class="shadow-lg h-12 p-2 flex justify-evenly items-center">
+    <div>
+      <div class="daisyui-btn-group">
+        <button class="daisyui-btn daisyui-btn-sm">
+          Button A
+        </button>
+        <button class="daisyui-btn daisyui-btn-sm">
+          Button A
+        </button>
+      </div>
+    </div>
+    <div>
+
+    </div>
+    <div>
+
+    </div>
+  </nav>
 </template>
 
 <script>
-import NavbarComp from './components/NavbarComp.vue';
 export default {
-  "components": {
-    NavbarComp
-  }
+  "name": "NavbarComp"
 }
 </script>
