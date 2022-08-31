@@ -16,24 +16,61 @@
 
 <template>
   <div class="h-full">
-    <div class="flex odd:bg-secondary/75" v-for="tierTitle, index in defaultTierTitles" :key="tierTitle.index">
-      <div class="flex w-full shadow-primary border-b-2 border-t-2 border-primary">
-        <div class="h-20 w-[20%] text-3xl flex flex-col justify-center pl-2 border-r-2 border-r-primary">
-          <h1 contenteditable="true" class="outline-none" 
-          @click="titleClicked(index)"
-          @input="changeTierTitle($event, index)">{{ tierTitle }}</h1>
+    <div class="space-y-1">
+      <div class="flex shadow-sm shadow-primary">
+        <div class="w-[20%] h-20 text-3xl flex flex-col justify-center pl-2 border-r-2">
+          <h1 contenteditable="true" class="outline-none"
+          @click="titleClicked(0)">{{ defaultTierTitles[0] }}</h1>
         </div>
-        <div class=" w-[80%]">
-
+        <div class="w-[80%] h-20"></div>
+      </div>
+      <div class="flex shadow-sm shadow-primary">
+        <div class="w-[20%] h-20 text-3xl flex flex-col justify-center pl-2 border-r-2">
+          <h1 contenteditable="true" class="outline-none"
+          @click="titleClicked(1)">{{ defaultTierTitles[1] }}</h1>
         </div>
+        <div class="w-[80%] h-20"></div>
+      </div>
+      <div class="flex shadow-sm shadow-primary">
+        <div class="w-[20%] h-20 text-3xl flex flex-col justify-center pl-2 border-r-2">
+          <h1 contenteditable="true" class="outline-none"
+          @click="titleClicked(2)">{{ defaultTierTitles[2] }}</h1>
+        </div>
+        <div class="w-[80%] h-20"></div>
+      </div>
+      <div class="flex shadow-sm shadow-primary">
+        <div class="w-[20%] h-20 text-3xl flex flex-col justify-center pl-2 border-r-2">
+          <h1 contenteditable="true" class="outline-none"
+          @click="titleClicked(3)">{{ defaultTierTitles[3] }}</h1>
+        </div>
+        <div class="w-[80%] h-20"></div>
+      </div>
+      <div class="flex shadow-sm shadow-primary">
+        <div class="w-[20%] h-20 text-3xl flex flex-col justify-center pl-2 border-r-2">
+          <h1 contenteditable="true" class="outline-none"
+          @click="titleClicked(4)">{{ defaultTierTitles[4] }}</h1>
+        </div>
+        <div class="w-[80%] h-20"></div>
       </div>
     </div>
-    <div class="flex w-full bg-red-300 mt-2 h-fit">
-      <div class="w-[20%] h-20 text-3xl flex flex-col justify-center pl-2 border-r-2 border-r-primary">
+    <div class="flex w-full bg-red-300 mt-5  h-fitTier A rounded">
+      <div class="w-[20%] h-20 text-3xl flex flex-col justify-center pl-2 border-r-2">
         Items
       </div>
       <div class="w-[80%] h-20">
         Items list
+      </div>
+    </div>
+    <div class="w-full flex justify-center">
+      <div class="flex flex-col space-y-2 w-[28rem] relative items-center">
+        <h1 class="text-2xl">Manage Items</h1>
+        <input type="text" 
+        class="w-full text-black/75 h-10 rounded-full outline-none p-4 border-2 border-primary focus:border-4 focus:border-primary"
+        placeholder="enter item name" />
+        <button class="daisyui-btn rounded-full w-fit no-animation">
+          <span>Add Item</span>
+          <font-awesome-icon icon="fa-solid fa-plus" class="ml-1" />
+        </button>
       </div>
     </div>
   </div>
@@ -56,6 +93,9 @@ export default {
       const usersTierTitle = event.target.innerText;
       this.defaultTierTitles[index] = usersTierTitle;
     }
+  },
+  "computed": {
+    
   }
 }
 </script>
