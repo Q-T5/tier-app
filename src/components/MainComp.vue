@@ -82,7 +82,8 @@ export default {
   "name": "MainComp",
   data() {
     return {
-      "defaultTierTitles": ["Tier A", "Tier B", "Tier C", "Tier D", "Tier E"]
+      "defaultTierTitles": ["Tier A", "Tier B", "Tier C", "Tier D", "Tier E"],
+      "itemsToTier": []
     }
   },
   "methods": {
@@ -95,7 +96,21 @@ export default {
     }
   },
   "computed": {
-    
+    tierAItems() {
+      return this.itemsToTier.filter((item) => { item.tier = "A" });
+    },
+    tierBItems() {
+      return this.itemsToTier.filter((item) => { item.tier = "B" });
+    },
+    tierCItems() {
+      return this.itemsToTier.filter((item) => { item.tier = "C" });
+    },
+    tierDItems() {
+      return this.itemsToTier.filter((item) => { item.tier = "D" });
+    },
+    tierEItems() {
+      return this.itemsToTier.filter((item) => { item.tier = "E" });
+    }
   }
 }
 </script>
