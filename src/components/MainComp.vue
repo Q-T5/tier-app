@@ -57,8 +57,8 @@
       <div class="w-[20%] h-20 text-3xl flex flex-col justify-center pl-2 border-r-2">
         Items
       </div>
-      <div class="w-[80%] h-20">
-        Items list
+      <div class="w-[80%] h-20" v-for="item in itemsToTier" :key="item.index">
+        <p class="bg-primary/75 h-fit text-2xl p-2 rounded-md m-1">{{ item.name }}</p>
       </div>
     </div>
     <div class="w-full flex justify-center">
@@ -66,8 +66,8 @@
         <h1 class="text-2xl">Manage Items</h1>
         <input type="text" 
         class="w-full text-black/75 h-10 rounded-full outline-none p-4 border-2 border-primary focus:border-4 focus:border-primary"
-        placeholder="enter item name" />
-        <button class="daisyui-btn rounded-full w-fit no-animation">
+        placeholder="enter item name" v-model="itemName" />
+        <button class="daisyui-btn rounded-full w-fit no-animation" @click="createNewItem">
           <span>Add Item</span>
           <font-awesome-icon icon="fa-solid fa-plus" class="ml-1" />
         </button>
@@ -78,12 +78,19 @@
 
 <script>
 let currentTierTitle = "";
+class Item {
+  constructor(tier, name) {
+    this.tier = tier;
+    this.name = name;
+  }
+}
 export default {
   "name": "MainComp",
   data() {
     return {
       "defaultTierTitles": ["Tier A", "Tier B", "Tier C", "Tier D", "Tier E"],
-      "itemsToTier": []
+      "itemsToTier": [],
+      "itemName": null
     }
   },
   "methods": {
@@ -93,6 +100,11 @@ export default {
     "changeTierTitle": function(event, index) {
       const usersTierTitle = event.target.innerText;
       this.defaultTierTitles[index] = usersTierTitle;
+    },
+    "createNewItem": function() {
+      this.itemsToTier.push(new Item("", this.itemName));
+      console.log(this.itemsToTier);
+      this.itemName = null;
     }
   },
   "computed": {
