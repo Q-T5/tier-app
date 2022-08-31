@@ -21,7 +21,7 @@
       <settings-comp class="absolute shadow-md shadow-primary-focus/50 rounded-md top-2 w-[30rem] h-[24rem] backdrop-blur-md"
       :class="hideSettings ? 'hidden': 'flex'"/>
     </div>
-    <main-comp class="bg-red-300 h-full" />
+    <main-comp />
   </div>
 </template>
 
