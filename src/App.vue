@@ -35,7 +35,7 @@ export default {
   },
   data() {
     return {
-      "hideSettings": false
+      "hideSettings": true
     }
   }
 }
