@@ -16,7 +16,7 @@
 
 <template>
   <div class="relative h-screen max-h-screen flex flex-col">
-    <navbar-comp @showSettings="hideSettings = !hideSettings" />
+    <navbar-comp />
     <div class="w-full flex justify-center">
       <settings-comp class="absolute shadow-md shadow-primary-focus/50 rounded-md top-2 w-[30rem] h-[24rem] backdrop-blur-md"
       :class="hideSettings ? 'hidden': 'flex'"/>
@@ -27,11 +27,10 @@
 
 <script>
 import NavbarComp from './components/NavbarComp.vue'
-import SettingsComp from './components/SettingsComp.vue'
 import MainComp from './components/MainComp.vue'
 export default {
   "components": {
-    NavbarComp, SettingsComp, MainComp
+    NavbarComp, MainComp
   },
   data() {
     return {
