@@ -18,47 +18,49 @@
   <div class="h-full">
     <div class="space-y-1">
       <div class="flex shadow-sm shadow-primary">
-        <div class="w-[20%] h-20 text-3xl flex flex-col justify-center pl-2 border-r-2">
+        <div class="tier-titles">
           <h1 contenteditable="true" class="outline-none"
           @click="titleClicked(0)">{{ defaultTierTitles[0] }}</h1>
         </div>
-        <div class="w-[80%] h-20"></div>
+        <div class="w-[80%] h-20" v-for="item in tierAItems" :key="item.index">
+          <p class="bg-primary/75 h-fit text-xl p-2 rounded-md m-1">{{ item.name }}</p>
+        </div>
       </div>
       <div class="flex shadow-sm shadow-primary">
-        <div class="w-[20%] h-20 text-3xl flex flex-col justify-center pl-2 border-r-2">
+        <div class="tier-titles">
           <h1 contenteditable="true" class="outline-none"
           @click="titleClicked(1)">{{ defaultTierTitles[1] }}</h1>
         </div>
         <div class="w-[80%] h-20"></div>
       </div>
       <div class="flex shadow-sm shadow-primary">
-        <div class="w-[20%] h-20 text-3xl flex flex-col justify-center pl-2 border-r-2">
+        <div class="tier-titles">
           <h1 contenteditable="true" class="outline-none"
           @click="titleClicked(2)">{{ defaultTierTitles[2] }}</h1>
         </div>
         <div class="w-[80%] h-20"></div>
       </div>
       <div class="flex shadow-sm shadow-primary">
-        <div class="w-[20%] h-20 text-3xl flex flex-col justify-center pl-2 border-r-2">
+        <div class="tier-titles">
           <h1 contenteditable="true" class="outline-none"
           @click="titleClicked(3)">{{ defaultTierTitles[3] }}</h1>
         </div>
         <div class="w-[80%] h-20"></div>
       </div>
       <div class="flex shadow-sm shadow-primary">
-        <div class="w-[20%] h-20 text-3xl flex flex-col justify-center pl-2 border-r-2">
+        <div class="tier-titles">
           <h1 contenteditable="true" class="outline-none"
           @click="titleClicked(4)">{{ defaultTierTitles[4] }}</h1>
         </div>
         <div class="w-[80%] h-20"></div>
       </div>
     </div>
-    <div class="flex w-full bg-red-300 mt-5  h-fitTier A rounded">
-      <div class="w-[20%] h-20 text-3xl flex flex-col justify-center pl-2 border-r-2">
+    <div class="flex w-full bg-red-300 mt-5  h-fit rounded">
+      <div class="w-[20%] min-w-[20%] h-20 text-3xl flex flex-col justify-center pl-2 border-r-2">
         Items
       </div>
       <div class="w-[80%] h-20" v-for="item in itemsToTier" :key="item.index">
-        <p class="bg-primary/75 h-fit text-2xl p-2 rounded-md m-1">{{ item.name }}</p>
+        <p class="bg-primary/75 text-xl p-2 rounded-md m-1">{{ item.name }}</p>
       </div>
     </div>
     <div class="w-full flex justify-center">
@@ -77,7 +79,7 @@
 </template>
 
 <script>
-let currentTierTitle = "";
+const currentTierTitle = "";
 class Item {
   constructor(tier, name) {
     this.tier = tier;
@@ -102,26 +104,31 @@ export default {
       this.defaultTierTitles[index] = usersTierTitle;
     },
     "createNewItem": function() {
-      this.itemsToTier.push(new Item("", this.itemName));
-      console.log(this.itemsToTier);
+      this.itemsToTier.push(new Item("X", this.itemName));
+      console.log(this.itemsToTier[this.itemsToTier.length - 1] );
       this.itemName = null;
     }
   },
   "computed": {
     tierAItems() {
-      return this.itemsToTier.filter((item) => { item.tier = "A" });
+      return this.itemsToTier.filter((item) => { item.tier === "A" });
     },
     tierBItems() {
-      return this.itemsToTier.filter((item) => { item.tier = "B" });
+      return this.itemsToTier.filter((item) => { item.tier === "B" });
     },
     tierCItems() {
-      return this.itemsToTier.filter((item) => { item.tier = "C" });
+      return this.itemsToTier.filter((item) => { item.tier === "C" });
     },
     tierDItems() {
-      return this.itemsToTier.filter((item) => { item.tier = "D" });
+      return this.itemsToTier.filter((item) => { item.tier === "D" });
     },
     tierEItems() {
-      return this.itemsToTier.filter((item) => { item.tier = "E" });
+      return this.itemsToTier.filter((item) => { item.tier === "E" });
+    }
+  },
+  "watch": {
+    itemsToTier() {
+      this.itemsToTier();
     }
   }
 }

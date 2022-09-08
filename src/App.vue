@@ -17,10 +17,6 @@
 <template>
   <div class="relative h-screen max-h-screen flex flex-col">
     <navbar-comp />
-    <div class="w-full flex justify-center">
-      <settings-comp class="absolute shadow-md shadow-primary-focus/50 rounded-md top-2 w-[30rem] h-[24rem] backdrop-blur-md"
-      :class="hideSettings ? 'hidden': 'flex'"/>
-    </div>
     <main-comp />
   </div>
 </template>
