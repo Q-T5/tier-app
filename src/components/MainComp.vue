@@ -22,8 +22,12 @@
           <h1 contenteditable="true" class="outline-none"
           @click="titleClicked(0)">{{ defaultTierTitles[0] }}</h1>
         </div>
-        <div class="w-[80%] h-20" v-for="item in tierAItems" :key="item.index">
-          <p class="bg-primary/75 h-fit text-xl p-2 rounded-md m-1">{{ item.name }}</p>
+        <div class="w-[80%] h-20" 
+        v-for="item in tierAItems" :key="item.index" @drop="dropEvent($event, A)" @dragover.prevent @dragenter.prevent>
+          <p class="bg-primary/75 h-fit text-xl p-2 rounded-md m-1"
+          draggable="true" @dragstart="startDrag($event, item)">
+            {{ item.name }}
+          </p>
         </div>
       </div>
       <div class="flex shadow-sm shadow-primary">
@@ -31,36 +35,61 @@
           <h1 contenteditable="true" class="outline-none"
           @click="titleClicked(1)">{{ defaultTierTitles[1] }}</h1>
         </div>
-        <div class="w-[80%] h-20"></div>
+        <div class="w-[80%] h-20" 
+        v-for="item in tierBItems" :key="item.index" @drop="dropEvent" @dragover.prevent @dragenter.prevent>
+          <p class="bg-primary/75 h-fit text-xl p-2 rounded-md m-1"
+          draggable="true" @dragstart="startDrag($event, item)">
+            {{ item.name }}
+          </p>
+        </div>
       </div>
       <div class="flex shadow-sm shadow-primary">
         <div class="tier-titles">
           <h1 contenteditable="true" class="outline-none"
           @click="titleClicked(2)">{{ defaultTierTitles[2] }}</h1>
         </div>
-        <div class="w-[80%] h-20"></div>
+        <div class="w-[80%] h-20" 
+        v-for="item in tierCItems" :key="item.index" @drop="dropEvent" @dragover.prevent @dragenter.prevent>
+          <p class="bg-primary/75 h-fit text-xl p-2 rounded-md m-1"
+          draggable="true" @dragstart="startDrag($event, item)">
+            {{ item.name }}
+          </p>
+        </div>
       </div>
       <div class="flex shadow-sm shadow-primary">
         <div class="tier-titles">
           <h1 contenteditable="true" class="outline-none"
           @click="titleClicked(3)">{{ defaultTierTitles[3] }}</h1>
         </div>
-        <div class="w-[80%] h-20"></div>
+        <div class="w-[80%] h-20" 
+        v-for="item in tierDItems" :key="item.index" @drop="dropEvent" @dragover.prevent @dragenter.prevent>
+          <p class="bg-primary/75 h-fit text-xl p-2 rounded-md m-1"
+          draggable="true" @dragstart="startDrag($event, item)">
+            {{ item.name }}
+          </p>
+        </div>
       </div>
       <div class="flex shadow-sm shadow-primary">
         <div class="tier-titles">
           <h1 contenteditable="true" class="outline-none"
           @click="titleClicked(4)">{{ defaultTierTitles[4] }}</h1>
         </div>
-        <div class="w-[80%] h-20"></div>
+        <div class="w-[80%] h-20" 
+        v-for="item in tierCItems" :key="item.index" @drop="dropEvent" @dragover.prevent @dragenter.prevent>
+          <p class="bg-primary/75 h-fit text-xl p-2 rounded-md m-1"
+          draggable="true" @dragstart="startDrag($event, item)">
+            {{ item.name }}
+          </p>
+        </div>
       </div>
     </div>
-    <div class="flex w-full bg-red-300 mt-5  h-fit rounded">
+    <div class="flex w-full shadow-sm shadow-primary mt-5  h-fit rounded">
       <div class="w-[20%] min-w-[20%] h-20 text-3xl flex flex-col justify-center pl-2 border-r-2">
-        Items
+        Tier Items
       </div>
-      <div class="w-[80%] h-20" v-for="item in itemsToTier" :key="item.index">
-        <p class="bg-primary/75 text-xl p-2 rounded-md m-1">{{ item.name }}</p>
+      <div class="w-[80%] h-20" v-for="item, index in tierXItems" :key="item.index">
+        <p class="bg-primary/60 text-xl p-2 rounded-md w-fit m-1"
+        draggable="true" @dragstart="startDrag($event, index)">{{ item.name }}</p>
       </div>
     </div>
     <div class="w-full flex justify-center">
@@ -91,7 +120,7 @@ export default {
   data() {
     return {
       "defaultTierTitles": ["Tier A", "Tier B", "Tier C", "Tier D", "Tier E"],
-      "itemsToTier": [],
+      "itemsToTier": [{"tier": "A", "name": "test item 1"}, {"tier": "B", "name": "test item B"}],
       "itemName": null
     }
   },
@@ -107,23 +136,36 @@ export default {
       this.itemsToTier.push(new Item("X", this.itemName));
       console.log(this.itemsToTier[this.itemsToTier.length - 1] );
       this.itemName = null;
+    },
+    "startDrag": function(event, index) {
+      event.dataTransfer.dropEffect = "move";
+      event.dataTransfer.effectAllowed = "move";
+      event.dataTransfer.setData("itemIndex", index);
+    },
+    "dropEvent": function(event, tier) {
+      const itemIndex = event.dataTransfer.getData("itemIndex");
+      console.log(`item index: ${ itemIndex }`);
+      this.itemsToTier[itemIndex].tier = tier;
     }
   },
   "computed": {
     tierAItems() {
-      return this.itemsToTier.filter((item) => { item.tier === "A" });
+      return this.itemsToTier.filter((item) =>  item.tier === "A" );
     },
     tierBItems() {
-      return this.itemsToTier.filter((item) => { item.tier === "B" });
+      return this.itemsToTier.filter((item) =>  item.tier === "B" );
     },
     tierCItems() {
-      return this.itemsToTier.filter((item) => { item.tier === "C" });
+      return this.itemsToTier.filter((item) =>  item.tier === "C" );
     },
     tierDItems() {
-      return this.itemsToTier.filter((item) => { item.tier === "D" });
+      return this.itemsToTier.filter((item) =>  item.tier === "D" );
     },
     tierEItems() {
-      return this.itemsToTier.filter((item) => { item.tier === "E" });
+      return this.itemsToTier.filter((item) =>  item.tier === "E" );
+    },
+    tierXItems() {
+      return this.itemsToTier.filter((item) => item.tier === "X");
     }
   },
   "watch": {
