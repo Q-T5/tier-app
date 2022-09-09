@@ -15,162 +15,112 @@
 -->
 
 <template>
-  <div class="h-full">
-    <div class="space-y-1">
-      <div class="flex shadow-sm shadow-primary">
-        <div class="tier-titles">
-          <h1 contenteditable="true" class="outline-none"
-          @click="titleClicked(0)">{{ defaultTierTitles[0] }}</h1>
-        </div>
-        <div class="w-[80%] h-20" 
-        v-for="item in tierAItems" :key="item.index" @drop="dropEvent($event, A)" @dragover.prevent @dragenter.prevent>
-          <p class="bg-primary/75 h-fit text-xl p-2 rounded-md m-1"
-          draggable="true" @dragstart="startDrag($event, item)">
-            {{ item.name }}
-          </p>
-        </div>
-      </div>
-      <div class="flex shadow-sm shadow-primary">
-        <div class="tier-titles">
-          <h1 contenteditable="true" class="outline-none"
-          @click="titleClicked(1)">{{ defaultTierTitles[1] }}</h1>
-        </div>
-        <div class="w-[80%] h-20" 
-        v-for="item in tierBItems" :key="item.index" @drop="dropEvent" @dragover.prevent @dragenter.prevent>
-          <p class="bg-primary/75 h-fit text-xl p-2 rounded-md m-1"
-          draggable="true" @dragstart="startDrag($event, item)">
-            {{ item.name }}
-          </p>
-        </div>
-      </div>
-      <div class="flex shadow-sm shadow-primary">
-        <div class="tier-titles">
-          <h1 contenteditable="true" class="outline-none"
-          @click="titleClicked(2)">{{ defaultTierTitles[2] }}</h1>
-        </div>
-        <div class="w-[80%] h-20" 
-        v-for="item in tierCItems" :key="item.index" @drop="dropEvent" @dragover.prevent @dragenter.prevent>
-          <p class="bg-primary/75 h-fit text-xl p-2 rounded-md m-1"
-          draggable="true" @dragstart="startDrag($event, item)">
-            {{ item.name }}
-          </p>
-        </div>
-      </div>
-      <div class="flex shadow-sm shadow-primary">
-        <div class="tier-titles">
-          <h1 contenteditable="true" class="outline-none"
-          @click="titleClicked(3)">{{ defaultTierTitles[3] }}</h1>
-        </div>
-        <div class="w-[80%] h-20" 
-        v-for="item in tierDItems" :key="item.index" @drop="dropEvent" @dragover.prevent @dragenter.prevent>
-          <p class="bg-primary/75 h-fit text-xl p-2 rounded-md m-1"
-          draggable="true" @dragstart="startDrag($event, item)">
-            {{ item.name }}
-          </p>
-        </div>
-      </div>
-      <div class="flex shadow-sm shadow-primary">
-        <div class="tier-titles">
-          <h1 contenteditable="true" class="outline-none"
-          @click="titleClicked(4)">{{ defaultTierTitles[4] }}</h1>
-        </div>
-        <div class="w-[80%] h-20" 
-        v-for="item in tierCItems" :key="item.index" @drop="dropEvent" @dragover.prevent @dragenter.prevent>
-          <p class="bg-primary/75 h-fit text-xl p-2 rounded-md m-1"
-          draggable="true" @dragstart="startDrag($event, item)">
-            {{ item.name }}
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="flex w-full shadow-sm shadow-primary mt-5  h-fit rounded">
-      <div class="w-[20%] min-w-[20%] h-20 text-3xl flex flex-col justify-center pl-2 border-r-2">
-        Tier Items
-      </div>
-      <div class="w-[80%] h-20" v-for="item, index in tierXItems" :key="item.index">
-        <p class="bg-primary/60 text-xl p-2 rounded-md w-fit m-1"
-        draggable="true" @dragstart="startDrag($event, index)">{{ item.name }}</p>
-      </div>
-    </div>
-    <div class="w-full flex justify-center">
-      <div class="flex flex-col space-y-2 w-[28rem] relative items-center">
-        <h1 class="text-2xl">Manage Items</h1>
-        <input type="text" 
-        class="w-full text-black/75 h-10 rounded-full outline-none p-4 border-2 border-primary focus:border-4 focus:border-primary"
-        placeholder="enter item name" v-model="itemName" />
-        <button class="daisyui-btn rounded-full w-fit no-animation" @click="createNewItem">
-          <span>Add Item</span>
-          <font-awesome-icon icon="fa-solid fa-plus" class="ml-1" />
+  <div class="flex flex-col h-full">
+    <div class="flex flex-col items-center w-full h-full">
+      <h1 class="text-2xl">Add new tier items</h1>
+      <div class="relative">
+        <input type="text" class="w-[28rem] h-9 rounded outline-none p-2 text-black/75" maxlength="40"
+        v-model="itemName" />
+        <button class=" daisyui-btn daisyui-btn-sm absolute w-fit right-0.5 top-0.5 rounded no-animation space-x-1"
+        @click="addNewTierItem">
+          <span>Add</span>
+          <font-awesome-icon icon="fa-solid fa-plus" />
         </button>
+      </div>
+      <div class="flex flex-col h-full w-full mt-4">
+        <div class="shadow shadow-primary h-fit flex">
+          <div class="h-20 flex justify-start items-center w-[20%] border-r-2 border-r-primary pl-2">
+            <h1 class="text-3xl">Tier A</h1>
+          </div>
+          <div class="h-20 flex items-center w-fit pl-2" v-for="item in tierAItems" :key="item.index">
+            <p class="bg-primary/75 p-2 rounded text-2xl">{{ item.name }}</p>
+          </div>
+        </div>
+        <div class="shadow shadow-primary h-fit flex">
+          <div class="h-20 flex justify-start items-center w-[20%] border-r-2 border-r-primary pl-2">
+            <h1 class="text-3xl">Tier B</h1>
+          </div>
+          <div class="h-20 flex items-center w-fit pl-2" v-for="item in tierBItems" :key="item.index">
+            <p class="bg-primary/75 p-2 rounded text-2xl">{{ item.name }}</p>
+          </div>
+        </div>
+        <div class="shadow shadow-primary h-fit flex">
+          <div class="h-20 flex justify-start items-center w-[20%] border-r-2 border-r-primary pl-2">
+            <h1 class="text-3xl">Tier C</h1>
+          </div>
+          <div class="h-20 flex items-center w-fit pl-2" v-for="item in tierCItems" :key="item.index">
+            <p class="bg-primary/75 p-2 rounded text-2xl">{{ item.name }}</p>
+          </div>
+        </div>
+        <div class="shadow shadow-primary h-fit flex">
+          <div class="h-20 flex justify-start items-center w-[20%] border-r-2 border-r-primary pl-2">
+            <h1 class="text-3xl">Tier D</h1>
+          </div>
+          <div class="h-20 flex items-center w-fit pl-2" v-for="item in tierDItems" :key="item.index">
+            <p class="bg-primary/75 p-2 rounded text-2xl">{{ item.name }}</p>
+          </div>
+        </div>
+        <div class="shadow shadow-primary h-fit flex">
+          <div class="h-20 flex justify-start items-center w-[20%] border-r-2 border-r-primary pl-2">
+            <h1 class="text-3xl">Tier E</h1>
+          </div>
+          <div class="h-20 flex items-center w-fit pl-2" v-for="item in tierEItems" :key="item.index">
+            <p class="bg-primary/75 p-2 rounded text-2xl">{{ item.name }}</p>
+          </div>
+        </div>
+        <div class="shadow shadow-primary h-fit flex">
+          <div class="h-20 flex justify-start items-center w-[20%] border-r-2 border-r-primary pl-2">
+            <h1 class="text-3xl">Tier Items</h1>
+          </div>
+          <div class="h-20 flex items-center w-fit pl-2" v-for="item in untieredItems" :key="item.index">
+            <p class="bg-primary/75 p-2 rounded text-2xl">{{ item.name }}</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-const currentTierTitle = "";
-class Item {
-  constructor(tier, name) {
-    this.tier = tier;
+class TierItem {
+  constructor(name, tier) {
     this.name = name;
+    this.tier = tier;
   }
 }
+
 export default {
   "name": "MainComp",
   data() {
     return {
-      "defaultTierTitles": ["Tier A", "Tier B", "Tier C", "Tier D", "Tier E"],
-      "itemsToTier": [{"tier": "A", "name": "test item 1"}, {"tier": "B", "name": "test item B"}],
-      "itemName": null
+      "tierItems": [],
+      "itemName": ""
     }
   },
   "methods": {
-    "titleClicked": function(index) {
-      currentTierTitle = this.defaultTierTitles[index];
-    },
-    "changeTierTitle": function(event, index) {
-      const usersTierTitle = event.target.innerText;
-      this.defaultTierTitles[index] = usersTierTitle;
-    },
-    "createNewItem": function() {
-      this.itemsToTier.push(new Item("X", this.itemName));
-      console.log(this.itemsToTier[this.itemsToTier.length - 1] );
-      this.itemName = null;
-    },
-    "startDrag": function(event, index) {
-      event.dataTransfer.dropEffect = "move";
-      event.dataTransfer.effectAllowed = "move";
-      event.dataTransfer.setData("itemIndex", index);
-    },
-    "dropEvent": function(event, tier) {
-      const itemIndex = event.dataTransfer.getData("itemIndex");
-      console.log(`item index: ${ itemIndex }`);
-      this.itemsToTier[itemIndex].tier = tier;
+    "addNewTierItem": function() {
+      this.tierItems.push(new TierItem(this.itemName, ""));
+      this.itemName = "";
     }
   },
   "computed": {
+    untieredItems() {
+      return this.tierItems.filter((item) => item.tier === "");
+    },
     tierAItems() {
-      return this.itemsToTier.filter((item) =>  item.tier === "A" );
+      return this.tierItems.filter((item) => item.tier === "A");
     },
     tierBItems() {
-      return this.itemsToTier.filter((item) =>  item.tier === "B" );
+      return this.tierItems.filter((item) => item.tier === "B");
     },
     tierCItems() {
-      return this.itemsToTier.filter((item) =>  item.tier === "C" );
+      return this.tierItems.filter((item) => item.tier === "C");
     },
     tierDItems() {
-      return this.itemsToTier.filter((item) =>  item.tier === "D" );
+      return this.tierItems.filter((item) => item.tier === "D");
     },
     tierEItems() {
-      return this.itemsToTier.filter((item) =>  item.tier === "E" );
-    },
-    tierXItems() {
-      return this.itemsToTier.filter((item) => item.tier === "X");
-    }
-  },
-  "watch": {
-    itemsToTier() {
-      this.itemsToTier();
+      return this.tierItems.filter((item) => item.tier === "E");
     }
   }
 }
