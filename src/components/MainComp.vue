@@ -32,48 +32,60 @@
           <div class="h-20 flex justify-start items-center w-[20%] border-r-2 border-r-primary pl-2">
             <h1 class="text-3xl">Tier A</h1>
           </div>
-          <div class="h-20 flex items-center w-fit pl-2" v-for="item in tierAItems" :key="item.index">
-            <p class="bg-primary/75 p-2 rounded text-2xl">{{ item.name }}</p>
+          <div class="h-20 flex items-center w-[80%] pl-2 space-x-2" @dragover.prevent @dragenter.prevent
+          @drop="itemDropped($event, 'A')">
+            <p class="bg-primary/75 p-2 rounded text-2xl" v-for="item in tierAItems" :key="item.index" 
+            draggable="true" @dragstart="startingDrag($event, item)">{{ item.name }}</p>
           </div>
         </div>
         <div class="shadow shadow-primary h-fit flex">
           <div class="h-20 flex justify-start items-center w-[20%] border-r-2 border-r-primary pl-2">
             <h1 class="text-3xl">Tier B</h1>
           </div>
-          <div class="h-20 flex items-center w-fit pl-2" v-for="item in tierBItems" :key="item.index">
-            <p class="bg-primary/75 p-2 rounded text-2xl">{{ item.name }}</p>
+          <div class="h-20 flex items-center w-[80%] pl-2 space-x-2" @dragover.prevent @dragenter.prevent
+          @drop="itemDropped($event, 'B')">
+            <p class="bg-primary/75 p-2 rounded text-2xl" v-for="item in tierBItems" :key="item.index" 
+            draggable="true" @dragstart="startingDrag($event, item)">{{ item.name }}</p>
           </div>
         </div>
         <div class="shadow shadow-primary h-fit flex">
           <div class="h-20 flex justify-start items-center w-[20%] border-r-2 border-r-primary pl-2">
             <h1 class="text-3xl">Tier C</h1>
           </div>
-          <div class="h-20 flex items-center w-fit pl-2" v-for="item in tierCItems" :key="item.index">
-            <p class="bg-primary/75 p-2 rounded text-2xl">{{ item.name }}</p>
+          <div class="h-20 flex items-center w-[80%] pl-2 space-x-2" @dragover.prevent @dragenter.prevent
+          @drop="itemDropped($event, 'C')">
+            <p class="bg-primary/75 p-2 rounded text-2xl" v-for="item in tierCItems" :key="item.index" 
+            draggable="true" @dragstart="startingDrag($event, item)">{{ item.name }}</p>
           </div>
         </div>
         <div class="shadow shadow-primary h-fit flex">
           <div class="h-20 flex justify-start items-center w-[20%] border-r-2 border-r-primary pl-2">
             <h1 class="text-3xl">Tier D</h1>
           </div>
-          <div class="h-20 flex items-center w-fit pl-2" v-for="item in tierDItems" :key="item.index">
-            <p class="bg-primary/75 p-2 rounded text-2xl">{{ item.name }}</p>
+          <div class="h-20 flex items-center w-[80%] pl-2 space-x-2" @dragover.prevent @dragenter.prevent
+          @drop="itemDropped($event, 'D')">
+            <p class="bg-primary/75 p-2 rounded text-2xl" v-for="item in tierDItems" :key="item.index" 
+            draggable="true" @dragstart="startingDrag($event, item)">{{ item.name }}</p>
           </div>
         </div>
         <div class="shadow shadow-primary h-fit flex">
           <div class="h-20 flex justify-start items-center w-[20%] border-r-2 border-r-primary pl-2">
             <h1 class="text-3xl">Tier E</h1>
           </div>
-          <div class="h-20 flex items-center w-fit pl-2" v-for="item in tierEItems" :key="item.index">
-            <p class="bg-primary/75 p-2 rounded text-2xl">{{ item.name }}</p>
+          <div class="h-20 flex items-center w-[80%] pl-2 space-x-2" @dragover.prevent @dragenter.prevent
+          @drop="itemDropped($event, 'E')">
+            <p class="bg-primary/75 p-2 rounded text-2xl" v-for="item in tierEItems" :key="item.index" 
+            draggable="true" @dragstart="startingDrag($event, item)">{{ item.name }}</p>
           </div>
         </div>
         <div class="shadow shadow-primary h-fit flex">
-          <div class="h-20 flex justify-start items-center w-[20%] border-r-2 border-r-primary pl-2">
+          <div class="h-20 min-h-20 flex justify-start items-center w-[20%] border-r-2 border-r-primary pl-2">
             <h1 class="text-3xl">Tier Items</h1>
           </div>
-          <div class="h-20 flex items-center w-fit pl-2" v-for="item in untieredItems" :key="item.index">
-            <p class="bg-primary/75 p-2 rounded text-2xl">{{ item.name }}</p>
+          <div class="h-20 min-h-20 flex items-center w-[80%] pl-2 space-x-2 space-y-2 flex-wrap p-2" @dragover.prevent @dragenter.prevent
+          @drop="itemDropped($event, '')">
+            <p class="bg-primary/75 p-2 rounded text-2xl" v-for="item in untieredItems" :key="item.index" 
+            draggable="true" @dragstart="startingDrag($event, item)">{{ item.name }}</p>
           </div>
         </div>
       </div>
@@ -101,6 +113,19 @@ export default {
     "addNewTierItem": function() {
       this.tierItems.push(new TierItem(this.itemName, ""));
       this.itemName = "";
+    },
+    "startingDrag": function(event, item) {
+      console.log(`item being dragged: ${ JSON.stringify(item) }`);
+      event.dataTransfer.dropEffect = "move";
+      event.dataTransfer.effectAllowed = "move";
+      event.dataTransfer.setData("itemIndex", this.tierItems.indexOf(item));
+    },
+    "itemDropped": function(event, tier) {
+      console.log("Item has been dropped... ");
+      const itemIndex = event.dataTransfer.getData("itemIndex");
+      event.dataTransfer.clearData();
+      this.tierItems[itemIndex].tier = tier;
+      console.log(`New item state: ${ JSON.stringify(this.tierItems[itemIndex]) }`);
     }
   },
   "computed": {
