@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="flex items-center space-x-2">
-      <img src="src/assets/dog-png.png" alt="dog-logo" class="w-10">
+      <img src="../assets/dog-png.png" alt="dog-logo" class="w-10">
       <h2 class="text-xl">Vue Tier App</h2>
     </div>
   </nav>
