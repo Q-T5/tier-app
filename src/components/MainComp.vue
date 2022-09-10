@@ -20,7 +20,7 @@
       <h1 class="text-xl">Add new tier items</h1>
       <div class="relative">
         <input type="text" class="w-[28rem] h-9 rounded outline-none p-2 text-black/75" maxlength="40"
-        v-model="itemName" placeholder="item name e.g Mango" />
+        v-model="itemName" placeholder="item name e.g Mango" @keypress.enter="addNewTierItem"/>
         <button class=" daisyui-btn daisyui-btn-sm absolute w-fit right-0.5 top-0.5 rounded no-animation space-x-1"
         @click="addNewTierItem">
           <span>Add</span>
@@ -109,6 +109,7 @@ class TierItem {
 
 export default {
   "name": "MainComp",
+  "emits": ["changeTheme"],
   data() {
     return {
       "tierItems": [],
