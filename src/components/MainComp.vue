@@ -18,8 +18,8 @@
   <div class="flex flex-col h-full">
     <div class="flex flex-col items-center w-full h-full">
       <h1 class="text-xl">Add new tier items</h1>
-      <div class="relative">
-        <input type="text" class="w-[28rem] h-9 rounded outline-none p-2 text-black/75" maxlength="40"
+      <div class="relative border-2 border-primary rounded">
+        <input type="text" class="w-[28rem] h-9 rounded outline-none p-2 text-black/75 bg-transparent text-primary" maxlength="40"
         v-model="itemName" placeholder="item name e.g Mango" @keypress.enter="addNewTierItem"/>
         <button class=" daisyui-btn daisyui-btn-sm absolute w-fit right-0.5 top-0.5 rounded no-animation space-x-1"
         @click="addNewTierItem">
@@ -30,7 +30,7 @@
       <div class="flex flex-col h-full w-full mt-4">
         <div class="shadow shadow-primary h-fit flex">
           <div class="h-20 flex justify-start items-center w-[20%] pl-2">
-            <h1 class="text-3xl">Tier A</h1>
+            <h1 class="text-3xl outline-none" contenteditable="true">Tier A</h1>
           </div>
           <div class="min-h-20 border-l-2 border-l-primary h-auto flex items-center w-[80%] pl-2 space-x-2 flex-wrap p-2" 
           @dragover.prevent @dragenter.prevent
@@ -41,7 +41,7 @@
         </div>
         <div class="shadow shadow-primary h-fit flex">
           <div class="h-20 flex justify-start items-center w-[20%] pl-2">
-            <h1 class="text-3xl">Tier B</h1>
+            <h1 class="text-3xl outline-none" contenteditable="true">Tier B</h1>
           </div>
           <div class="min-h-20 border-l-2 border-l-primary h-auto flex items-center w-[80%] pl-2 space-x-2 flex-wrap p-2" 
           @dragover.prevent @dragenter.prevent
@@ -52,7 +52,7 @@
         </div>
         <div class="shadow shadow-primary h-fit flex">
           <div class="h-20 flex justify-start items-center w-[20%] pl-2">
-            <h1 class="text-3xl">Tier C</h1>
+            <h1 class="text-3xl outline-none" contenteditable="true">Tier C</h1>
           </div>
           <div class="min-h-20 border-l-2 border-l-primary h-auto flex items-center w-[80%] pl-2 space-x-2 flex-wrap p-2" 
           @dragover.prevent @dragenter.prevent
@@ -63,7 +63,7 @@
         </div>
         <div class="shadow shadow-primary h-fit flex">
           <div class="h-20 flex justify-start items-center w-[20%] pl-2">
-            <h1 class="text-3xl">Tier D</h1>
+            <h1 class="text-3xl outline-none" contenteditable="true">Tier D</h1>
           </div>
           <div class="min-h-20 border-l-2 border-l-primary h-auto flex items-center w-[80%] pl-2 space-x-2 flex-wrap p-2" 
           @dragover.prevent @dragenter.prevent
@@ -74,7 +74,7 @@
         </div>
         <div class="shadow shadow-primary h-fit flex">
           <div class="h-20 flex justify-start items-center w-[20%] pl-2">
-            <h1 class="text-3xl">Tier E</h1>
+            <h1 class="text-3xl outline-none" contenteditable="true">Tier E</h1>
           </div>
           <div class="min-h-20 border-l-2 border-l-primary h-auto flex items-center w-[80%] pl-2 space-x-2 flex-wrap p-2" 
           @dragover.prevent @dragenter.prevent
@@ -85,7 +85,7 @@
         </div>
         <div class="shadow shadow-primary h-fit flex">
           <div class="h-20 flex justify-start items-center w-[20%] pl-2">
-            <h1 class="text-3xl">Tier Items</h1>
+            <h1 class="text-3xl outline-none">Tier Items</h1>
           </div>
           <div class="min-h-20 border-l-2 border-l-primary flex items-center w-[80%] pl-2 space-x-2 flex-wrap p-2" 
           @dragover.prevent @dragenter.prevent
@@ -122,17 +122,14 @@ export default {
       this.itemName = "";
     },
     "startingDrag": function(event, item) {
-      console.log(`item being dragged: ${ JSON.stringify(item) }`);
       event.dataTransfer.dropEffect = "move";
       event.dataTransfer.effectAllowed = "move";
       event.dataTransfer.setData("itemIndex", this.tierItems.indexOf(item));
     },
     "itemDropped": function(event, tier) {
-      console.log("Item has been dropped... ");
       const itemIndex = event.dataTransfer.getData("itemIndex");
       event.dataTransfer.clearData();
       this.tierItems[itemIndex].tier = tier;
-      console.log(`New item state: ${ JSON.stringify(this.tierItems[itemIndex]) }`);
     }
   },
   "computed": {
@@ -154,6 +151,9 @@ export default {
     tierEItems() {
       return this.tierItems.filter((item) => item.tier === "E");
     }
+  },
+  mounted() {
+    alert("click on any tier title (e.g 'Tier A') to change it's name");
   }
 }
 </script>
