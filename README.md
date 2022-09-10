@@ -3,6 +3,7 @@
 
 
 Enjoy tiering you favorite items in any of the five categories provided in this simple app.
+Click on https://q-t5.github.io/tier-app/ to use the app.
 
 # License
 Licensed under the Apache V2 License. Use and modify at your own pleasure.  
